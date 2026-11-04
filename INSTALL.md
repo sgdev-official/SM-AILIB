@@ -106,13 +106,13 @@ Restart the client, then run `/mcp` (Claude) or list tools to verify.
 
 ## 5. Deploy the landing page (static)
 
-The sm-ailib landing page lives at `plugin/website/index.html` (black + yellow, glowing rotating rings, frosted glass, Material Symbols icons).
+The sm-ailib landing page lives at `website/index.html` (black + yellow, glowing rotating rings, frosted glass, Material Symbols icons).
 
 Deploy as a static site (Surge example):
 
 ```sh
 mkdir -p /tmp/sma-ilib-site
-cp plugin/website/index.html /tmp/sma-ilib-site/index.html
+cp website/index.html /tmp/sma-ilib-site/index.html
 surge /tmp/sma-ilib-site sm-ailib.sgdev.qd.je
 ```
 
