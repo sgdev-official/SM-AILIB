@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "sm-ailib": {
+      "command": "node",
+      "args": ["<ABSOLUTE_PATH_TO_SM_AILIB_SERVER_JS>"],
+      "env": {
+        "SM_AILIB_HOME": "<ABSOLUTE_DATA_HOME>"
+      }
+    }
+  }
+}

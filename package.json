@@ -1,0 +1,14 @@
+{
+  "name": "sm-ailib",
+  "version": "1.0.0",
+  "description": "Cross-client MCP memory, image generation and token-budget layer for text-only models.",
+  "type": "module",
+  "main": "server.js",
+  "bin": {
+    "sm-ailib": "./server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.25.76"
+  }
+}
