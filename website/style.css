@@ -1157,3 +1157,228 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* =========================================
+   UX / ACCESSIBILITY PASS
+   ========================================= */
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: -60px;
+  z-index: 2000;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--purple-dark);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  transition: top .2s;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+section[id] {
+  scroll-margin-top: 90px;
+}
+
+/* icons */
+.ext-icon {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+.feature-icon {
+  color: var(--purple);
+}
+
+.feature-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.menu-toggle svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.menu-toggle .close-icon {
+  display: none;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-icon {
+  display: none;
+}
+
+.menu-toggle[aria-expanded="true"] .close-icon {
+  display: block;
+}
+
+#backToTop svg {
+  width: 20px;
+  height: 20px;
+}
+
+.nav-links a[aria-current="true"] {
+  color: #fff;
+}
+
+/* hero meta list */
+.hero-meta {
+  list-style: none;
+  padding: 0;
+}
+
+.hero-meta li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hero-meta svg {
+  width: 13px;
+  height: 13px;
+  color: #8e7bc5;
+}
+
+/* copy feedback */
+.copy-command.copied {
+  background: #2f7d55;
+  border-color: var(--green);
+  color: #eafff3;
+}
+
+/* install steps */
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 26px;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 16px;
+}
+
+.step-num {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #514078;
+  border-radius: 50%;
+  background: #191526;
+  color: #c4b5fd;
+  font-family: "DM Mono", monospace;
+  font-size: 13px;
+}
+
+.step-body {
+  min-width: 0;
+}
+
+.step-body h3 {
+  margin-bottom: 6px;
+  font-size: 19px;
+}
+
+.step-body > p {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.install-content > .box-label {
+  margin: 14px 0 -6px;
+  color: #8e7bc5;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.box-label:first-child {
+  margin-top: 0;
+}
+
+/* json block */
+.code-block {
+  position: relative;
+  margin: 13px 0;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #090910;
+  overflow: hidden;
+}
+
+.code-block pre {
+  margin: 0;
+  padding: 14px 90px 14px 14px;
+  overflow-x: auto;
+  color: #c4b5fd;
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.code-block .copy-command {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* small-text contrast */
+.small-note {
+  color: #9b99ae;
+}
+
+.copyright {
+  color: #8f8da2;
+}
+
+.terminal-header {
+  color: #9b99ae;
+}
+
+@media (max-width: 700px) {
+  .nav-links {
+    max-height: calc(100dvh - 66px);
+    overflow-y: auto;
+  }
+
+  .menu-toggle {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+  }
+}

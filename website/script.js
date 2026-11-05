@@ -2,15 +2,15 @@
 (() => {
   "use strict";
 
-  /* =========================================
-     SM-AILIB — COMPLETE WEBSITE JAVASCRIPT
-     ========================================= */
-
   const $ = (selector, parent = document) =>
     parent.querySelector(selector);
 
   const $$ = (selector, parent = document) =>
     [...parent.querySelectorAll(selector)];
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
 
 
   /* ---------- STICKY NAVIGATION ---------- */
@@ -19,15 +19,11 @@
 
   const updateNavigation = () => {
     if (!nav) return;
-
     nav.classList.toggle("scrolled", window.scrollY > 8);
   };
 
   updateNavigation();
-
-  window.addEventListener("scroll", updateNavigation, {
-    passive: true
-  });
+  window.addEventListener("scroll", updateNavigation, { passive: true });
 
 
   /* ---------- MOBILE MENU ---------- */
@@ -35,31 +31,38 @@
   const menuToggle = $("#menuToggle");
   const navLinks = $("#navLinks");
 
-  if (menuToggle && navLinks) {
-    menuToggle.addEventListener("click", () => {
-      const isOpen = navLinks.classList.toggle("open");
+  const setMenu = open => {
+    if (!menuToggle || !navLinks) return;
 
-      menuToggle.textContent = isOpen ? "✕" : "☰";
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
+    navLinks.classList.toggle("open", open);
+    menuToggle.setAttribute("aria-expanded", String(open));
+    menuToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  };
+
+  if (menuToggle && navLinks) {
+    setMenu(false);
+
+    menuToggle.addEventListener("click", () => {
+      setMenu(menuToggle.getAttribute("aria-expanded") !== "true");
     });
 
-    $$(".nav-links a").forEach(link => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuToggle.textContent = "☰";
-        menuToggle.setAttribute("aria-expanded", "false");
-      });
+    $$("a", navLinks).forEach(link => {
+      link.addEventListener("click", () => setMenu(false));
     });
 
     document.addEventListener("click", event => {
       if (
-        navLinks.classList.contains("open") &&
         !navLinks.contains(event.target) &&
         !menuToggle.contains(event.target)
       ) {
-        navLinks.classList.remove("open");
-        menuToggle.textContent = "☰";
-        menuToggle.setAttribute("aria-expanded", "false");
+        setMenu(false);
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && navLinks.classList.contains("open")) {
+        setMenu(false);
+        menuToggle.focus();
       }
     });
   }
@@ -72,15 +75,13 @@
   const sections = links
     .map(link => {
       const id = link.getAttribute("href");
-
       if (!id || !id.startsWith("#")) return null;
-
       return $(id);
     })
     .filter(Boolean);
 
-  if ("IntersectionObserver" in window) {
-    const sectionObserver = new IntersectionObserver(
+  if ("IntersectionObserver" in window && sections.length) {
+    const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
@@ -88,72 +89,83 @@
           const id = `#${entry.target.id}`;
 
           links.forEach(link => {
-            link.classList.toggle(
-              "active",
-              link.getAttribute("href") === id
-            );
+            const active = link.getAttribute("href") === id;
+
+            link.classList.toggle("active", active);
+
+            if (active) {
+              link.setAttribute("aria-current", "true");
+            } else {
+              link.removeAttribute("aria-current");
+            }
           });
         });
       },
-      {
-        rootMargin: "-25% 0px -65% 0px",
-        threshold: 0
-      }
+      { rootMargin: "-25% 0px -65% 0px", threshold: 0 }
     );
 
-    sections.forEach(section => {
-      sectionObserver.observe(section);
-    });
+    sections.forEach(section => observer.observe(section));
   }
 
 
   /* ---------- INSTALLATION TABS ---------- */
 
-  const installTabs = $$(".install-tab");
-  const installPanels = $$(".install-content");
+  const tabs = $$(".install-tab");
 
-  installTabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      const targetId = tab.dataset.target;
+  const selectTab = tab => {
+    tabs.forEach(item => {
+      const active = item === tab;
+      const panel = document.getElementById(
+        item.getAttribute("aria-controls")
+      );
 
-      installTabs.forEach(item => {
-        const active = item === tab;
+      item.classList.toggle("active", active);
+      item.setAttribute("aria-selected", String(active));
+      item.tabIndex = active ? 0 : -1;
 
-        item.classList.toggle("active", active);
-        item.setAttribute("aria-selected", String(active));
-      });
-
-      installPanels.forEach(panel => {
-        const active = panel.id === targetId;
-
+      if (panel) {
         panel.classList.toggle("active", active);
         panel.hidden = !active;
-      });
+      }
+    });
+  };
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => selectTab(tab));
+
+    tab.addEventListener("keydown", event => {
+      const move =
+        event.key === "ArrowRight" ? 1 :
+        event.key === "ArrowLeft" ? -1 : 0;
+
+      if (!move) return;
+
+      event.preventDefault();
+
+      const next = tabs[(index + move + tabs.length) % tabs.length];
+
+      selectTab(next);
+      next.focus();
     });
   });
 
-  // Set initial installation panel state.
-  installPanels.forEach((panel, index) => {
-    const active = index === 0;
-
-    panel.classList.toggle("active", active);
-    panel.hidden = !active;
-  });
+  if (tabs.length) selectTab(tabs[0]);
 
 
   /* ---------- COPY BUTTONS ---------- */
 
-  const copyButtons = $$(".copy-command");
+  $$(".copy-command").forEach(button => {
+    const label = button.textContent.trim();
 
-  copyButtons.forEach(button => {
     button.addEventListener("click", async () => {
-      const container = button.parentElement;
-      const code = $("code", container);
+      const scope =
+        button.closest(".command-box, .command-item, .code-block") ||
+        button.parentElement;
 
+      const code = $("code", scope);
       if (!code) return;
 
       const text = code.textContent.trim();
-      const originalText = button.textContent;
 
       try {
         if (navigator.clipboard && window.isSecureContext) {
@@ -174,42 +186,31 @@
           if (!copied) throw new Error("Copy failed");
         }
 
-        button.textContent = "Copied!";
+        button.textContent = "Copied";
         button.classList.add("copied");
-
       } catch (error) {
-        console.error("Clipboard error:", error);
-
         button.textContent = "Failed";
       }
 
       window.setTimeout(() => {
-        button.textContent = originalText;
+        button.textContent = label;
         button.classList.remove("copied");
       }, 1600);
     });
   });
 
 
-  /* ---------- FAQ ACCORDION ---------- */
+  /* ---------- FAQ: one answer open at a time ---------- */
 
   const faqItems = $$(".faq-item");
 
   faqItems.forEach(item => {
-    const summary = $("summary", item);
-
-    if (!summary) return;
-
-    summary.addEventListener("click", event => {
-      event.preventDefault();
-
-      const shouldOpen = !item.open;
+    item.addEventListener("toggle", () => {
+      if (!item.open) return;
 
       faqItems.forEach(other => {
-        other.open = false;
+        if (other !== item) other.open = false;
       });
-
-      item.open = shouldOpen;
     });
   });
 
@@ -220,74 +221,25 @@
 
   const updateBackToTop = () => {
     if (!backToTop) return;
-
-    backToTop.classList.toggle(
-      "visible",
-      window.scrollY > 450
-    );
+    backToTop.classList.toggle("visible", window.scrollY > 450);
   };
 
   updateBackToTop();
-
-  window.addEventListener("scroll", updateBackToTop, {
-    passive: true
-  });
+  window.addEventListener("scroll", updateBackToTop, { passive: true });
 
   if (backToTop) {
     backToTop.addEventListener("click", () => {
       window.scrollTo({
         top: 0,
-        behavior: "smooth"
+        behavior: reduceMotion ? "auto" : "smooth"
       });
     });
   }
 
 
-  /* ---------- DYNAMIC COPYRIGHT YEAR ---------- */
+  /* ---------- FOOTER YEAR ---------- */
 
   const year = $("#year");
-
-  if (year) {
-    year.textContent = new Date().getFullYear();
-  }
-
-
-  /* ---------- SMOOTH INTERNAL LINKS ---------- */
-
-  $$('a[href^="#"]').forEach(link => {
-    link.addEventListener("click", event => {
-      const targetId = link.getAttribute("href");
-
-      if (!targetId || targetId === "#") return;
-
-      const target = $(targetId);
-
-      if (!target) return;
-
-      event.preventDefault();
-
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
-      history.replaceState(null, "", targetId);
-    });
-  });
-
-
-  /* ---------- INITIALIZE ---------- */
-
-  document.documentElement.classList.add("js-ready");
-
-  console.log(
-    "%cSM-AILIB",
-    "color:#a78bfa;font-size:22px;font-weight:bold;"
-  );
-
-  console.log(
-    "%cPersistent memory. Image generation. Token modes.",
-    "color:#67e8f9;font-size:12px;"
-  );
+  if (year) year.textContent = new Date().getFullYear();
 
 })();
