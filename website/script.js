@@ -22,7 +22,12 @@
     nav.classList.toggle("scrolled", window.scrollY > 8);
   };
 
-  updateNavigation();
+  // rAF: read scroll position after the first layout instead of forcing one
+  requestAnimationFrame(() => {
+    updateNavigation();
+    updateBackToTop();
+  });
+
   window.addEventListener("scroll", updateNavigation, { passive: true });
 
 
@@ -224,7 +229,6 @@
     backToTop.classList.toggle("visible", window.scrollY > 450);
   };
 
-  updateBackToTop();
   window.addEventListener("scroll", updateBackToTop, { passive: true });
 
   if (backToTop) {
