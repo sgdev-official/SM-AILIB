@@ -1,327 +1,451 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>sm-ailib – memory, images and token modes for text-only AI</title>
-<meta name="description" content="sm-ailib gives text-only AI models persistent memory, free image generation and token-budget modes. Install it from GitHub in a few minutes.">
-<meta name="theme-color" content="#060606">
-<link rel="icon" href="https://www.sgdev.qd.je/assets/favicon.ico" type="image/x-icon">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<head><script>if(location.protocol==="http:")location.replace("https:"+location.href.slice(5));</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090910">
+  <meta name="description" content="SM-AILIB — Persistent memory, image generation and token modes for AI coding assistants.">
+  <title>SM-AILIB — Give Your AI a Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="bg" aria-hidden="true">
-  <div class="ring r1"></div>
-  <div class="ring r2"></div>
-  <div class="ring r3"></div>
-  <div class="halo"></div>
-</div>
-
-<a class="skip" href="#main">Skip to content</a>
-
-<header class="nav" id="nav">
-  <div class="nav-inner">
-    <a class="brand" href="#top" aria-label="sm-ailib home"><span class="brand-dot"></span>sm-ailib</a>
-    <nav class="nav-links" aria-label="Primary">
-      <a href="#features">Features</a>
-      <a href="#commands">Commands</a>
-      <a href="#install">Install</a>
-      <a href="#modes">Modes</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <a class="btn btn-sm" href="https://github.com/sgdev-official/SM-AILIB" target="_blank" rel="noopener">
-      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36 .96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.76 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.82 1.18 3.08 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
-      GitHub
+  <!-- NAVIGATION -->
+  <header class="nav" id="nav">
+    <a href="#home" class="logo">
+      <span class="logo-icon">S</span>
+      SM-AILIB<span class="logo-dot">.</span>
     </a>
-  </div>
-</header>
 
-<main id="main">
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#modes">Modes</a>
+      <a href="#commands">Commands</a>
+      <a href="#install">Installation</a>
+    </nav>
 
-  <!-- HERO -->
-  <section class="hero" id="top">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <p class="pill"><span class="pill-dot"></span>Open source · Apache-2.0</p>
-        <h1>Give text-only AI a memory, a camera and a budget.</h1>
-        <p class="lead">sm-ailib adds persistent memory, free image generation and token-budget modes to any text-only model that can call tools. Install it once and it works in Claude Code and OpenCode.</p>
-        <div class="cta-row">
-          <a class="btn" href="#install">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Install guide
+    <a class="nav-github" href="https://github.com/sgdev-official/SM-AILIB" target="_blank" rel="noopener">
+      GitHub ↗
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-glow"></div>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="status-dot"></span>
+          OPEN SOURCE · AI TOOLKIT
+        </div>
+
+        <h1>
+          Give your AI<br>
+          a <span class="gradient-text">Library.</span>
+        </h1>
+
+        <p class="hero-description">
+          Persistent memory, image generation and intelligent token
+          modes — all in one lightweight MCP server and skill bundle.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#install" class="btn-primary">Get Started <span>→</span></a>
+          <a href="https://github.com/sgdev-official/SM-AILIB"
+             class="btn-secondary" target="_blank" rel="noopener">
+            <span>GitHub</span> ↗
           </a>
-          <a class="btn ghost" href="https://github.com/sgdev-official/SM-AILIB" target="_blank" rel="noopener">View source</a>
+        </div>
+
+        <div class="hero-meta">
+          <span>⌘ MCP Compatible</span>
+          <span>✦ Open Source</span>
+          <span>⚡ Lightweight</span>
         </div>
       </div>
 
-      <div class="terminal glass" role="group" aria-label="Quick start">
-        <div class="term-bar">
-          <span class="dots"><i></i><i></i><i></i></span>
-          <span class="term-title">quick start</span>
-          <button class="copy" type="button" data-copy-target="hero-code" aria-label="Copy quick start commands">Copy</button>
+      <div class="hero-visual">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <i></i><i></i><i></i>
+            </div>
+            <span>sm-ailib / terminal</span>
+          </div>
+
+          <div class="terminal-body">
+            <p><span class="terminal-purple">›</span> <span class="terminal-green">sm_ailib_recall</span></p>
+            <p class="terminal-muted">query: "my previous project"</p>
+            <p class="terminal-success">✓ Memory retrieved</p>
+            <br>
+            <p><span class="terminal-purple">›</span> <span class="terminal-green">sm_ailib_level</span></p>
+            <p class="terminal-muted">mode: 3 · Standard</p>
+            <p class="terminal-success">✓ Token mode activated</p>
+            <br>
+            <p><span class="terminal-purple">›</span> <span class="terminal-green">sm_ailib_img</span></p>
+            <p class="terminal-muted">prompt: "futuristic city"</p>
+            <p class="terminal-success">✓ Image generated</p>
+            <br>
+            <p><span class="terminal-purple">›</span> <span class="terminal-cursor">_</span></p>
+          </div>
         </div>
-        <pre class="term-body"><code id="hero-code"><span class="line">git clone https://github.com/sgdev-official/SM-AILIB.git</span>
-<span class="line">cd SM-AILIB</span>
-<span class="line">npm install</span></code></pre>
-        <p class="term-note">Then connect it to your AI client – <a href="#install">step by step below</a>.</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FEATURES -->
-  <section class="section" id="features">
-    <div class="container">
-      <div class="section-head">
-        <h2>Three things text-only models canâ€™t do alone</h2>
-        <p>Each one is a tool your AI calls when it needs it, so nothing is spent on your context window until then.</p>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+      <div class="section-heading">
+        <span class="eyebrow">WHAT IT CAN DO</span>
+        <h2>One library. <span class="gradient-text">Three superpowers.</span></h2>
+        <p>Give text-only AI models access to useful local capabilities.</p>
       </div>
 
-      <div class="grid">
-        <article class="card glass">
-          <span class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
-          <h3>Persistent memory</h3>
-          <p>Save anything you want remembered and recall it in a later chat. Memory lives on your machine, not in the prompt.</p>
-          <p class="tags"><code>@sm_ailib_save</code><code>@sm_ailib_recall</code></p>
+      <div class="feature-grid">
+
+        <article class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <span class="feature-number">01 / MEMORY</span>
+          <h3>Persistent Memory</h3>
+          <p>
+            Save important information and recall it later.
+            Your AI can access stored context across sessions.
+          </p>
+          <code>@sm-ailib_save</code>
+          <code>@sm-ailib_recall</code>
         </article>
 
-        <article class="card glass">
-          <span class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="1.8" fill="currentColor"/><path d="m4 18 5.5-5 4 3.5 3-2.5L21 17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
-          <h3>Free image generation</h3>
-          <p>Describe an image and it is generated through Pollinations AI at no cost, then saved into your images folder.</p>
-          <p class="tags"><code>@sm_ailib_img</code></p>
+        <article class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <span class="feature-number">02 / IMAGES</span>
+          <h3>Image Generation</h3>
+          <p>
+            Generate images from text prompts using Pollinations AI
+            and save the results locally.
+          </p>
+          <code>@sm_ailib_img</code>
         </article>
 
-        <article class="card glass">
-          <span class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
-          <h3>Token-budget modes</h3>
-          <p>Switch between six levels, from one-sentence answers to full reasoning with a risk review.</p>
-          <p class="tags"><code>@sm_ailib_0</code><span class="to">to</span><code>@sm_ailib_5</code></p>
+        <article class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <span class="feature-number">03 / TOKENS</span>
+          <h3>Token Modes</h3>
+          <p>
+            Switch between six token modes, from strict minimal
+            responses to maximum audit.
+          </p>
+          <code>@sm_ailib_0 → @sm_ailib_5</code>
         </article>
-      </div>
-    </div>
-  </section>
 
-  <!-- COMMANDS -->
-  <section class="section" id="commands">
-    <div class="container split">
-      <div class="section-head left">
-        <h2>Ask in plain words, or call the tool</h2>
-        <p>Once connected, your AI can run these tools for you. You can also type them directly in chat.</p>
       </div>
-      <div class="codeblock glass">
-        <div class="cb-bar">
-          <span>In your AI chat</span>
-          <button class="copy" type="button" data-copy-target="cmd-code" aria-label="Copy example commands">Copy</button>
+    </section>
+
+
+    <!-- MODES -->
+    <section class="section modes-section" id="modes">
+      <div class="section-heading">
+        <span class="eyebrow">CONTROL YOUR CONTEXT</span>
+        <h2>Six modes. <span class="gradient-text">Your choice.</span></h2>
+        <p>Choose how much context your AI should use.</p>
+      </div>
+
+      <div class="mode-grid">
+
+        <article class="mode-card">
+          <span class="mode-id">MODE 0</span>
+          <h3>Strict Lazy</h3>
+          <strong>256</strong>
+          <small>tokens</small>
+          <p>Ultra-minimal responses.</p>
+          <code>@sm_ailib_0</code>
+        </article>
+
+        <article class="mode-card">
+          <span class="mode-id">MODE 1</span>
+          <h3>Minimal</h3>
+          <strong>2,048</strong>
+          <small>tokens</small>
+          <p>Minimal senior developer style.</p>
+          <code>@sm_ailib_1</code>
+        </article>
+
+        <article class="mode-card">
+          <span class="mode-id">MODE 2</span>
+          <h3>Focused</h3>
+          <strong>4,096</strong>
+          <small>tokens</small>
+          <p>More context for focused tasks.</p>
+          <code>@sm_ailib_2</code>
+        </article>
+
+        <article class="mode-card featured-mode">
+          <span class="mode-id">MODE 3 · DEFAULT</span>
+          <h3>Standard</h3>
+          <strong>8,192</strong>
+          <small>tokens</small>
+          <p>Balanced everyday reasoning.</p>
+          <code>@sm_ailib_3</code>
+        </article>
+
+        <article class="mode-card">
+          <span class="mode-id">MODE 4</span>
+          <h3>Maximum Reasoning</h3>
+          <strong>16,384</strong>
+          <small>tokens</small>
+          <p>Expanded context for complex tasks.</p>
+          <code>@sm_ailib_4</code>
+        </article>
+
+        <article class="mode-card">
+          <span class="mode-id">MODE 5</span>
+          <h3>Maximum Audit</h3>
+          <strong>32,768</strong>
+          <small>tokens</small>
+          <p>Maximum context for detailed audits.</p>
+          <code>@sm_ailib_5</code>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- COMMANDS -->
+    <section class="section" id="commands">
+      <div class="section-heading">
+        <span class="eyebrow">QUICK REFERENCE</span>
+        <h2>Simple <span class="gradient-text">commands.</span></h2>
+        <p>Use these commands to access SM-AILIB capabilities.</p>
+      </div>
+
+      <div class="command-list">
+
+        <div class="command-item">
+          <div>
+            <code>@sm-ailib_save &lt;content&gt;</code>
+            <p>Save information to persistent memory.</p>
+          </div>
+          <button class="copy-command">Copy</button>
         </div>
-        <pre><code id="cmd-code"><span class="line cm"># remember something</span>
-<span class="line">sm_ailib_save user-prefers-black-and-yellow</span>
-<span class="line cm"># bring it back later</span>
-<span class="line">sm_ailib_recall user-prefers</span>
-<span class="line cm"># generate an image</span>
-<span class="line">sm_ailib_img black-yellow abstract glow</span>
-<span class="line cm"># set the token mode (0 to 5)</span>
-<span class="line">sm_ailib_level 4</span></code></pre>
-      </div>
-    </div>
-  </section>
 
-  <!-- INSTALL -->
-  <section class="section" id="install">
-    <div class="container">
-      <div class="section-head">
-        <h2>Install sm-ailib</h2>
-        <p>About five minutes. You need Node.js and Git, plus Claude Code or OpenCode.</p>
-      </div>
-
-      <ol class="steps">
-
-        <li class="step">
-          <div class="step-num" aria-hidden="true">1</div>
-          <div class="step-body glass">
-            <h3>Check the requirements</h3>
-            <p>Node.js 18 or newer and Git must be installed. Run both commands â€“ each should print a version.</p>
-            <div class="codeblock">
-              <div class="cb-bar"><span>Terminal</span><button class="copy" type="button" data-copy-target="s1" aria-label="Copy commands">Copy</button></div>
-              <pre><code id="s1"><span class="line">node -v</span>
-<span class="line">git --version</span></code></pre>
-            </div>
-            <p class="hint">Missing one? Get Node.js from <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a> and Git from <a href="https://git-scm.com" target="_blank" rel="noopener">git-scm.com</a>.</p>
+        <div class="command-item">
+          <div>
+            <code>@sm-ailib_recall &lt;query&gt;</code>
+            <p>Search and recall saved information.</p>
           </div>
-        </li>
-
-        <li class="step">
-          <div class="step-num" aria-hidden="true">2</div>
-          <div class="step-body glass">
-            <h3>Clone the repository</h3>
-            <p>Download the bundle and move into the new folder.</p>
-            <div class="codeblock">
-              <div class="cb-bar"><span>Terminal</span><button class="copy" type="button" data-copy-target="s2" aria-label="Copy commands">Copy</button></div>
-              <pre><code id="s2"><span class="line">git clone https://github.com/sgdev-official/SM-AILIB.git</span>
-<span class="line">cd SM-AILIB</span></code></pre>
-            </div>
-          </div>
-        </li>
-
-        <li class="step">
-          <div class="step-num" aria-hidden="true">3</div>
-          <div class="step-body glass">
-            <h3>Install dependencies</h3>
-            <p>Run this inside the <code>SM-AILIB</code> folder.</p>
-            <div class="codeblock">
-              <div class="cb-bar"><span>Terminal</span><button class="copy" type="button" data-copy-target="s3" aria-label="Copy command">Copy</button></div>
-              <pre><code id="s3"><span class="line">npm install</span></code></pre>
-            </div>
-          </div>
-        </li>
-
-        <li class="step">
-          <div class="step-num" aria-hidden="true">4</div>
-          <div class="step-body glass">
-            <h3>Connect it to your AI client</h3>
-            <p>Pick your client and your system. Stay inside the <code>SM-AILIB</code> folder so the commands find <code>server.js</code>.</p>
-
-            <div class="tabs" data-tabs>
-              <div class="tablist" role="tablist" aria-label="AI client">
-                <button class="tab is-active" role="tab" id="t-cc" aria-selected="true" aria-controls="p-cc" data-tab="cc">Claude Code</button>
-                <button class="tab" role="tab" id="t-oc" aria-selected="false" aria-controls="p-oc" data-tab="oc" tabindex="-1">OpenCode</button>
-              </div>
-
-              <div class="tabpanel" role="tabpanel" id="p-cc" aria-labelledby="t-cc" data-panel="cc">
-                <div class="tabs" data-tabs>
-                  <div class="tablist small" role="tablist" aria-label="Operating system">
-                    <button class="tab is-active" role="tab" id="t-cc-nix" aria-selected="true" aria-controls="p-cc-nix" data-tab="nix">macOS / Linux</button>
-                    <button class="tab" role="tab" id="t-cc-win" aria-selected="false" aria-controls="p-cc-win" data-tab="win" tabindex="-1">Windows PowerShell</button>
-                  </div>
-                  <div class="tabpanel" role="tabpanel" id="p-cc-nix" aria-labelledby="t-cc-nix" data-panel="nix">
-                    <div class="codeblock">
-                      <div class="cb-bar"><span>Terminal</span><button class="copy" type="button" data-copy-target="s4-nix" aria-label="Copy command">Copy</button></div>
-                      <pre><code id="s4-nix"><span class="line">claude mcp add sm-ailib --env SM_AILIB_HOME="$HOME/.sm-ailib" -- node "$PWD/server.js"</span></code></pre>
-                    </div>
-                  </div>
-                  <div class="tabpanel" role="tabpanel" id="p-cc-win" aria-labelledby="t-cc-win" data-panel="win" hidden>
-                    <div class="codeblock">
-                      <div class="cb-bar"><span>PowerShell</span><button class="copy" type="button" data-copy-target="s4-win" aria-label="Copy command">Copy</button></div>
-                      <pre><code id="s4-win"><span class="line">claude mcp add sm-ailib --env SM_AILIB_HOME="$HOME\.sm-ailib" -- node "$PWD\server.js"</span></code></pre>
-                    </div>
-                  </div>
-                </div>
-                <p class="hint">Memory and images are stored in the folder set by <code>SM_AILIB_HOME</code>. Change it if you want them somewhere else.</p>
-              </div>
-
-              <div class="tabpanel" role="tabpanel" id="p-oc" aria-labelledby="t-oc" data-panel="oc" hidden>
-                <p>Add this to your <code>opencode.json</code>, replacing the path with the full path to <code>server.js</code> inside your cloned folder.</p>
-                <div class="codeblock">
-                  <div class="cb-bar"><span>opencode.json</span><button class="copy" type="button" data-copy-target="s4-oc" aria-label="Copy config">Copy</button></div>
-                  <pre><code id="s4-oc"><span class="line plain">{</span>
-<span class="line plain">  "mcp": {</span>
-<span class="line plain">    "sm-ailib": {</span>
-<span class="line plain">      "type": "local",</span>
-<span class="line plain">      "command": ["node", "/full/path/to/SM-AILIB/server.js"],</span>
-<span class="line plain">      "environment": { "SM_AILIB_HOME": "~/.sm-ailib" },</span>
-<span class="line plain">      "enabled": true</span>
-<span class="line plain">    }</span>
-<span class="line plain">  }</span>
-<span class="line plain">}</span></code></pre>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="step">
-          <div class="step-num" aria-hidden="true">5</div>
-          <div class="step-body glass">
-            <h3>Check that it works</h3>
-            <p>Restart your client, then ask it to save something and recall it.</p>
-            <div class="codeblock">
-              <div class="cb-bar"><span>In your AI chat</span><button class="copy" type="button" data-copy-target="s5" aria-label="Copy commands">Copy</button></div>
-              <pre><code id="s5"><span class="line">sm_ailib_save test-it-works</span>
-<span class="line">sm_ailib_recall test</span></code></pre>
-            </div>
-            <p class="hint">If the saved note comes back, youâ€™re done. To update later, run <code>git pull</code> and <code>npm install</code> in the folder.</p>
-          </div>
-        </li>
-
-      </ol>
-
-      <div class="trouble glass">
-        <h3>If something goes wrong</h3>
-        <ul>
-          <li><strong>Tools donâ€™t appear:</strong> restart the client and confirm the server path points to <code>server.js</code> in the cloned folder.</li>
-          <li><strong><code>claude</code> not found:</strong> install Claude Code first, then run the connect command again.</li>
-          <li><strong>Install errors:</strong> check <code>node -v</code> is 18 or higher, then run <code>npm install</code> again.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- MODES -->
-  <section class="section" id="modes">
-    <div class="container">
-      <div class="section-head">
-        <h2>Pick how much the AI says</h2>
-        <p>Drag the slider to see how the token-budget modes scale from short to thorough.</p>
-      </div>
-
-      <div class="modes glass">
-        <div class="modes-top">
-          <code class="modes-cmd" id="mode-cmd">@sm_ailib_2</code>
-          <span class="modes-name" id="mode-name">Level 2</span>
+          <button class="copy-command">Copy</button>
         </div>
-        <input class="slider" id="mode-range" type="range" min="0" max="5" step="1" value="2" aria-label="Token mode level" aria-describedby="mode-desc">
-        <div class="ticks" aria-hidden="true"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
-        <div class="meter" aria-hidden="true"><i id="mode-fill"></i></div>
-        <p class="modes-desc" id="mode-desc" aria-live="polite"></p>
-      </div>
-    </div>
-  </section>
 
-  <!-- FAQ -->
-  <section class="section" id="faq">
-    <div class="container narrow">
-      <div class="section-head">
-        <h2>Questions</h2>
+        <div class="command-item">
+          <div>
+            <code>@sm_ailib_img &lt;prompt&gt;</code>
+            <p>Generate an image from a text prompt.</p>
+          </div>
+          <button class="copy-command">Copy</button>
+        </div>
+
+        <div class="command-item">
+          <div>
+            <code>@sm_ailib_0 ... @sm_ailib_5</code>
+            <p>Switch between the six token modes.</p>
+          </div>
+          <button class="copy-command">Copy</button>
+        </div>
+
       </div>
-      <div class="faq">
-        <details class="glass">
+
+      <p class="small-note">
+        These are skill command formats. The MCP server exposes the
+        corresponding tools to supported AI clients.
+      </p>
+    </section>
+
+
+    <!-- INSTALLATION -->
+    <section class="section install-section" id="install">
+      <div class="section-heading">
+        <span class="eyebrow">GET STARTED</span>
+        <h2>Install <span class="gradient-text">SM-AILIB.</span></h2>
+        <p>Choose your AI coding assistant and follow its installation guide.</p>
+      </div>
+
+      <div class="install-card">
+
+        <div class="install-tabs">
+          <button class="install-tab active" data-target="claude">Claude Code</button>
+          <button class="install-tab" data-target="opencode">OpenCode</button>
+        </div>
+
+        <div class="install-content active" id="claude">
+          <h3>Claude Code</h3>
+          <p>Get the repository from GitHub and configure the MCP server.</p>
+
+          <div class="command-box">
+            <code>git clone https://github.com/sgdev-official/SM-AILIB.git</code>
+            <button class="copy-command">Copy</button>
+          </div>
+
+          <div class="command-box">
+            <code>cd SM-AILIB</code>
+            <button class="copy-command">Copy</button>
+          </div>
+
+          <div class="command-box">
+            <code>npm install</code>
+            <button class="copy-command">Copy</button>
+          </div>
+
+          <p class="install-note">
+            Follow the repository's current Claude Code installation
+            instructions to register the MCP server and skill.
+          </p>
+
+          <a href="https://docs.claude.com/en/docs/claude-code/mcp"
+             target="_blank" rel="noopener">Claude Code MCP documentation ↗</a>
+        </div>
+
+        <div class="install-content" id="opencode">
+          <h3>OpenCode</h3>
+          <p>Get SM-AILIB from GitHub and configure its OpenCode integration.</p>
+
+          <div class="command-box">
+            <code>git clone https://github.com/sgdev-official/SM-AILIB.git</code>
+            <button class="copy-command">Copy</button>
+          </div>
+
+          <div class="command-box">
+            <code>cd SM-AILIB</code>
+            <button class="copy-command">Copy</button>
+          </div>
+
+          <div class="command-box">
+            <code>npm install</code>
+            <button class="copy-command">Copy</button>
+          </div>
+
+          <p class="install-note">
+            Configure the MCP server, plugin and skill using the
+            OpenCode installation guide in the repository.
+          </p>
+
+          <a href="https://opencode.ai/docs/"
+             target="_blank" rel="noopener">OpenCode documentation ↗</a>
+        </div>
+
+        <a class="github-link"
+           href="https://github.com/sgdev-official/SM-AILIB"
+           target="_blank" rel="noopener">
+          View Repository on GitHub ↗
+        </a>
+
+      </div>
+    </section>
+
+
+    <!-- FAQ -->
+    <section class="section faq-section" id="faq">
+      <div class="section-heading">
+        <span class="eyebrow">QUESTIONS?</span>
+        <h2>Frequently asked <span class="gradient-text">questions.</span></h2>
+      </div>
+
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>What is SM-AILIB?</summary>
+          <p>
+            SM-AILIB is an MCP server and local skill bundle that
+            adds persistent memory, image generation and token modes
+            to supported AI clients.
+          </p>
+        </details>
+
+        <details class="faq-item">
           <summary>Which AI clients does it support?</summary>
-          <p>Claude Code and OpenCode today. Any client that can run a local tool server should be able to use it with the same <code>node server.js</code> command.</p>
+          <p>
+            It provides integration for OpenCode and Claude-compatible
+            environments. Check the repository for the latest setup details.
+          </p>
         </details>
-        <details class="glass">
-          <summary>Does image generation cost anything?</summary>
-          <p>No. Images come from Pollinations AI, which is free, and are saved into your images folder.</p>
-        </details>
-        <details class="glass">
+
+        <details class="faq-item">
           <summary>Where is my memory stored?</summary>
-          <p>On your own machine, in the folder set by <code>SM_AILIB_HOME</code>. Nothing is added to your prompt until the AI recalls it.</p>
+          <p>
+            Memory is stored locally by the SM-AILIB server.
+            Check the project documentation for its storage location.
+          </p>
         </details>
-        <details class="glass">
-          <summary>How do I update or remove it?</summary>
-          <p>To update, run <code>git pull</code> and <code>npm install</code> in the folder. To remove it, delete the folder and the <code>sm-ailib</code> entry from your clientâ€™s settings.</p>
+
+        <details class="faq-item">
+          <summary>Is SM-AILIB free and open source?</summary>
+          <p>
+            Yes. You can explore the source code and project updates
+            on the public GitHub repository.
+          </p>
         </details>
+
+        <details class="faq-item">
+          <summary>Does image generation require an internet connection?</summary>
+          <p>
+            Yes. The image generation feature uses Pollinations AI,
+            so it depends on network availability and that service.
+          </p>
+        </details>
+
       </div>
+    </section>
+
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+      <div class="cta-glow"></div>
+      <span class="eyebrow">READY TO UPGRADE YOUR AI?</span>
+      <h2>Give your AI a memory.</h2>
+      <p>Start building with SM-AILIB today.</p>
+
+      <a href="https://github.com/sgdev-official/SM-AILIB"
+         class="btn-primary" target="_blank" rel="noopener">
+        Explore on GitHub ↗
+      </a>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <a href="#home" class="logo">
+      <span class="logo-icon">S</span>
+      SM-AILIB<span class="logo-dot">.</span>
+    </a>
+
+    <p>Built for smarter AI workflows.</p>
+
+    <div class="footer-links">
+      <a href="https://github.com/sgdev-official/SM-AILIB"
+         target="_blank" rel="noopener">GitHub</a>
+      <a href="#features">Features</a>
+      <a href="#install">Installation</a>
     </div>
-  </section>
 
-</main>
-
-<footer class="footer">
-  <div class="container footer-inner">
-    <span class="brand small"><span class="brand-dot"></span>sm-ailib</span>
-    <span>Apache-2.0 Â· for text-only models</span>
-    <span class="footer-links">
-      <a href="https://github.com/sgdev-official/SM-AILIB" target="_blank" rel="noopener">Repository</a>
-      <a href="https://github.com/sgdev-official" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.sgdev.is-cool.dev/" target="_blank" rel="noopener">My work</a>
+    <span class="copyright">
+      © <span id="year"></span> SM-AILIB. Open source project.
     </span>
-  </div>
-</footer>
+  </footer>
 
-<script src="script.js"></script>
+
+  <button id="backToTop" aria-label="Back to top">↑</button>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
