@@ -15,7 +15,7 @@ persistent memory, zero-cost image generation, and granular token budgets.
 | Installer | `install.mjs` | Writes OpenCode MCP/plugin config, skill dir, Claude Desktop config. |
 | Test | `test/sm-ailib.test.mjs` | MCP stdio client: listTools, level, save, recall, img. |
 
-## Data flow
+## Data flow 
 
 - User text → client (OpenCode/Claude) → skill triggers → MCP tool (`sm_ailib_save` writes JSON memory; `sm_ailib_recall` reads) or `sm_ailib_img` (Pollinations fetch → local file) or `sm_ailib_level` (state file → `maxTokens`).
 - OpenCode prompt admission → plugin context hook → level rules + maxTokens override → model call.
