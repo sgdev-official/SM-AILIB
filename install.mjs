@@ -29,7 +29,7 @@ opencode.mcp.servers["sm-ailib"] = {
   type: "local",
   command: ["node", path.join(ROOT, "server.js")],
   cwd: ".",
-  environment: { SM_AILIB_HOME: path.join(ROOT) },
+  environment: { SM_AILIB_HOME: path.join(ROOT) }, 
 };
 if (!Array.isArray(opencode.plugins)) opencode.plugins = [];
 if (!opencode.plugins.includes("./plugins/sm-ailib")) opencode.plugins.push("./plugins/sm-ailib");
