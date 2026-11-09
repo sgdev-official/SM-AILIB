@@ -1,4 +1,4 @@
-# sm-ailib
+# sm-ailib 
 
 Cross-client **MCP (Model Context Protocol) server + local skill bundle** for text-only AI models.
 
